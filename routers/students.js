@@ -11,7 +11,8 @@ let students = [
         id:"1",
         name:"sugar",
         age:'10',
-        gender:"male"
+        gender:"male",
+        teacherid:null
     }
 ];
 
@@ -25,7 +26,7 @@ studentsRouter.get('/',((req,res)=>{
 
 studentsRouter.post('/',((req,res)=>{
     const {body}=req;
-    students.push({id:Date.now().toString(),...body});
+    students.push({id:Date.now().toString(),teacherid:null,...body});
     res.send({msg:"created student sussefully"});
 }))
 
