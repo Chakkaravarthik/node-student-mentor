@@ -1,5 +1,12 @@
 import express from 'express'
 import studentsRouter from './routers/students.js'
+import teacherRouter from './routers/teacher.js'
+import connectToDB from './db-utils/mongoconnection.js'
+import studentsDBRouter from './routers/studentsdb.js'
+
+
+// db connect 
+await connectToDB();
 
 const server = express();
 
@@ -38,7 +45,8 @@ server.delete('/',((req,res)=>{
 
 ///   students route connect 
 
-server.use('/students', studentsRouter);
+server.use('/students', studentsDBRouter);
+server.use('/teachers', teacherRouter);
 
 
 

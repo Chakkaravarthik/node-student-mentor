@@ -1,25 +1,18 @@
 import express from 'express';
+import {students , teachers } from './localVariables.js'
 
 const studentsRouter = express.Router();
-
-// STUENTS array server craetion 
-
-//-----
-
-let students = [
-    {
-        id:"1",
-        name:"sugar",
-        age:'10',
-        gender:"male",
-        teacherid:null
-    }
-];
 
 //get students data
 
 studentsRouter.get('/',((req,res)=>{
-    res.send(students)
+    const {teacherId}=req.query;
+    if(teacherId){
+        res.send({students:students.filter(stu=>stu.teacherid===teacherId)})
+    } else(
+        res.send(students)
+    )
+    
 }))
 
 // create new students 
@@ -48,4 +41,17 @@ studentsRouter.delete('/:studentsId',(req,res)=>{
     res.send({msg:"student deleted"})
 })
 
+
+// assigna teacher id to a student
+studentsRouter.patch('/assign-teacher/:studentId',((req,res)=>{
+    const {body}=req;
+    const {teacherId}=body;
+    const {studentId} =req.params;
+    const index = students.findIndex(s=>s.id===studentId);
+    const tindex= teachers.findIndex(t=>t.id===teacherId);
+    students[index].teacherId=teacherId;
+    teachers[tindex].studentsId.push(teacherId,... teachers[tindex].studentsId);
+
+    res.send({msg:'teacher assign susscessful'})
+}))
 export default studentsRouter;
