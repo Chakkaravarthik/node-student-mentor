@@ -27,4 +27,23 @@ studentsDBRouter.post('/', async (req,res)=>{
 
 })
 
+// student PUT api
+studentsDBRouter.put('/:studentId', async (req,res)=>{
+    const {studentId}=req.params;
+    const {body}=req;
+    const collection = db.collection("students");
+    collection.updateOne({id:studentId},{$set:{...body}})
+    res.send({msg:"student updated"})
+})
+
+
+//delete api 
+
+studentsDBRouter.delete('/:studentId',async (req,res)=>{
+    const {studentId}=req.params;
+    const collection = db.collection("students");
+    collection.deleteOne({id:studentId});
+    res.send({msg:"student record deleted"})
+})
+
 export default studentsDBRouter;
