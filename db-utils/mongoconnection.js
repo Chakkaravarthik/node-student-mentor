@@ -7,11 +7,15 @@ const dbname = 'stumen';
 
 const localuri = `mongodb://${dbcluster}/${dbname}`;
 
-const client = new MongoClient(localuri);
 
+
+
+
+const dbuser = 'chakkaravarthik99'
+const pass = encodeURIComponent('Sugar@99');
+const cloudURI = `mongodb+srv://${dbuser}:${pass}@cluster0.b1fwpte.mongodb.net/${dbname}?retryWrites=true&w=majority&appName=Cluster0`
+const client = new MongoClient(cloudURI);
 const db = client.db(dbname);
-
-
 
 const connectToDB = async ()=>{
     try{
@@ -20,6 +24,7 @@ const connectToDB = async ()=>{
     }catch(e){
         console.log(e);
         process.exit(1);
+        
     }
 };
 
