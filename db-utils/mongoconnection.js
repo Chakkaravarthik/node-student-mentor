@@ -1,9 +1,12 @@
 import {MongoClient} from 'mongodb';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 // mongo service URI- uniform resourse itendifier
 const dbcluster = 'localhost:27017';
 
-const dbname = 'stumen';
+const dbname = process.env.DB_dbname;
 
 const localuri = `mongodb://${dbcluster}/${dbname}`;
 
@@ -11,8 +14,8 @@ const localuri = `mongodb://${dbcluster}/${dbname}`;
 
 
 
-const dbuser = 'chakkaravarthik99'
-const pass = encodeURIComponent('Sugar@99');
+const dbuser =  process.env.DB_user;
+const pass = encodeURIComponent(process.env.DB_pass);
 const cloudURI = `mongodb+srv://${dbuser}:${pass}@cluster0.b1fwpte.mongodb.net/${dbname}?retryWrites=true&w=majority&appName=Cluster0`
 const client = new MongoClient(cloudURI);
 const db = client.db(dbname);
