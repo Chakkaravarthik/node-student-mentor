@@ -20,7 +20,7 @@ teachersRouter.get('/', async (req,res)=>{
 // POST (create) api for teachers using mongoose
 
 teachersRouter.post('/', async (req,res)=>{
-    const obj = req;
+    const {body} = req;
     try{
         const newteacher = await new teacherModel({
             ...body,id:Date.now().toString()

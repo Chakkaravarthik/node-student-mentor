@@ -19,7 +19,7 @@ const teacherSchema = new mongoose.Schema({
     studentsId:{
         type:"Array",
         required:true,
-        default:[]
+     
     }
 })
 

@@ -46,4 +46,27 @@ studentsDBRouter.delete('/:studentId',async (req,res)=>{
     res.send({msg:"student record deleted"})
 })
 
+
+// assign a teacher id to a student 
+
+studentsDBRouter.patch('/assign-teacher/:studentId', async (req,res)=>{
+    const {body}=req;
+    const {studentId} = req.params;
+    const {teacherId} = body;
+    //get student obj and teacher obj
+
+    const stuobj = await db.collection('students').findOne({id:studentId});
+    const teachobj = await db.collection('teachers').findOne({id:teacherId});
+    if(stuobj && teachobj){
+        //assign teacher id to students data
+      await  db.collection('students').updateOne({id:studentId}, {$set :{teacherId:teacherId}});
+        // assign students id to teachers data
+      await db.collection('teachers').updateOne({id:teacherId}, {$set : {studentsId: [...teachobj.studentsId, studentId]}})
+
+      res.send({msg:'teacher assignment success'})
+        
+    }else{
+        res.status(400).send({msg: 'invalid student or teacher'});
+    }
+})
 export default studentsDBRouter;
