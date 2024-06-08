@@ -5,6 +5,7 @@ import connectToDB from './db-utils/mongoconnection.js'
 import studentsDBRouter from './routers/studentsdb.js'
 import mongooseconnecttoDB from "./db-utils/mongooseconnection.js"
 import teachersRouter from './routers/teacherdbmongoose.js'
+import cors from 'cors'
 
 
 
@@ -18,6 +19,8 @@ const server = express();
 // middle ware - dont know correct usage 
 
 server.use(express.json());
+
+server.use(cors());
 
 // server GET api
 
