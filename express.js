@@ -6,6 +6,8 @@ import studentsDBRouter from './routers/studentsdb.js'
 import mongooseconnecttoDB from "./db-utils/mongooseconnection.js"
 import teachersRouter from './routers/teacherdbmongoose.js'
 import cors from 'cors'
+import registerrouter from './routers/auth/register.js'
+import loginrouter from './routers/auth/login.js'
 
 
 
@@ -55,6 +57,8 @@ server.delete('/',((req,res)=>{
 
 server.use('/students', studentsDBRouter);
 server.use('/teachers', teachersRouter);
+server.use('/register', registerrouter);
+server.use('/login', loginrouter);
 
 
 

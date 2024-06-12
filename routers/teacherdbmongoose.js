@@ -1,4 +1,4 @@
-import teacherModel from "../db-utils/model.js"; // teacherNodel
+import {teacherModel} from "../db-utils/model.js"; // teacherNodel
 import express from 'express'
 // mongoose db
 
