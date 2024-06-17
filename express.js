@@ -8,6 +8,8 @@ import teachersRouter from './routers/teacherdbmongoose.js'
 import cors from 'cors'
 import registerrouter from './routers/auth/register.js'
 import loginrouter from './routers/auth/login.js'
+import jwt from 'jsonwebtoken'
+import verifyuserrouter from './routers/auth/verifyuser.js'
 
 
 
@@ -52,13 +54,25 @@ server.delete('/',((req,res)=>{
     res.send({msg:"Delete method called "})
 }))
 
+const authapimdlwr = (req, res, next)=>{
+    try{
+        const token = req.headers['authorization']
+        jwt.verify(token,  process.env.JWT_SECRET);
+        next();
+    }catch(e){
+        console.log(e.message);
+        res.status(403).send({msg:'Unauthorised'})
+    }
+} 
+
 
 ///   students route connect 
 
 server.use('/students', studentsDBRouter);
-server.use('/teachers', teachersRouter);
+server.use('/teachers', authapimdlwr ,teachersRouter);
 server.use('/register', registerrouter);
 server.use('/login', loginrouter);
+server.use('/verify-user', verifyuserrouter)
 
 
 

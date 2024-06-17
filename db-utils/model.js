@@ -47,7 +47,11 @@ const userschema = new mongoose.Schema({
     password:{
         type:'string',
         required:true,
-    }
+    },
+    isVerified:{
+        type:'boolean',
+        required: true,
+    },
 })
 
 const userModel = new mongoose.model('user', userschema , 'users');
